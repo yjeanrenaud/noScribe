@@ -1266,6 +1266,31 @@ class App(ctk.CTk):
             self.check_box_timestamps.select()
         else:
             self.check_box_timestamps.deselect()
+
+        # detect PII
+        self.label_pii_mark = ctk.CTkLabel(self.frame_options, text=t('label_pii_mark'))
+        self.label_pii_mark.grid(column=0, row=9, sticky='w', pady=5)
+        self.check_box_pii_mark = ctk.CTkCheckBox(self.frame_options, text='')
+        self.check_box_pii_mark.grid(column=1, row=9, sticky='e', pady=5)
+
+        check_box_pii_mark = config.get('pii_mark', False)
+        if check_box_pii_mark:
+            self.check_box_pii_mark.select()
+        else:
+            self.check_box_pii_mark.deselect()
+
+        # PII: redact
+        self.label_pii_redact = ctk.CTkLabel(self.frame_options, text=t('label_pii_redact'))
+        self.label_pii_redact.grid(column=0, row=10, sticky='w', pady=5)
+        self.check_box_pii_redact = ctk.CTkCheckBox(self.frame_options, text='')
+        self.check_box_pii_redact.grid(column=1, row=10, sticky='e', pady=5)
+
+        check_box_pii_redact = config.get('pii_redact', False)
+        if check_box_pii_redact:
+            self.check_box_pii_redact.select()
+        else:
+            self.check_box_pii_redact.deselect()
+
         
         # Start control: single CTkOptionMenu styled like a button
         # Create a container so we can show/hide as one control
@@ -2285,6 +2310,8 @@ class App(ctk.CTk):
                 timestamps=self.check_box_timestamps.get(),
                 disfluencies=self.check_box_disfluencies.get(),
                 pause=self.option_menu_pause.get(),  # Pass string value
+                pii_mark = self.check_box_pii_mark.get(),
+                pii_redact = self.check_box_pii_redact.get(),
                 cli_mode=False
             )
             # Handle VTT format warnings in GUI mode
@@ -2424,7 +2451,9 @@ class App(ctk.CTk):
             option_info += f'{t("label_overlapping")} {job.overlapping} | '
             option_info += f'{t("label_timestamps")} {job.timestamps} | '
             option_info += f'{t("label_disfluencies")} {job.disfluencies} | '
-            option_info += f'{t("label_pause")} {job.pause}'
+            option_info += f'{t("label_pause")} {job.pause}' | '
+            option_info += f'{t("label_pii_mark")} {self.pii_mark} | '
+            option_info += f'{t("label_pii_redact")} {self.pii_redact} 
 
             # Create log file
             if not os.path.exists(f'{config_dir}/log'):
@@ -3356,6 +3385,8 @@ class App(ctk.CTk):
             config['last_disfluencies'] = self.check_box_disfluencies.get()
             config['force_pyannote_cpu'] = str(force_pyannote_cpu)
             config['force_whisper_cpu'] = str(force_whisper_cpu)
+            config['pii_mark'] = bool(self.pii_mark)
+            config['pii_redact'] = bool(self.pii_redact)
 
             save_config()
         finally:
