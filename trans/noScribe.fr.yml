@@ -43,6 +43,8 @@ fr:
   label_pause: 'Marquer les pauses :'
   label_timestamps: 'Horodatage :'
   label_disfluencies: 'Mots de remplissage :'
+  label_pii_mark : 'Marquer les ipi (*** … [balise] ***):'
+  label_pii_redact : 'Supprimer les ipi ([REDACTED]):'
   
   start_button: "Démarrer"
   start_queue: 'Démarrer la tâche maintenant'
