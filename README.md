@@ -2,6 +2,9 @@
 ### Cutting Edge AI Technology for Automated Audio Transcription
 </br>
 
+## YJ
+Goal of this fork is to implement https://github.com/yjeanrenaud/yj_qualAnonymiser in noScribe.
+
 > [!WARNING]
 > Somebody has registered the domain **noscribe(dot)ai** to sell transcription services. **Stay away from this platform, I have nothing to do with it.** The real noScribe is free and always will be. This is obviously an attempt to profit from the popularity of my software and the reputation it gained over the years. Very sad. 
 
