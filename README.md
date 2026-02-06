@@ -1,7 +1,9 @@
 ﻿# noScribe
 ### Cutting Edge AI Technology for Automated Audio Transcription
 </br>
+
 ## YJ
+
 Goal of this fork is to implement [yj_qualAnonymiser](https://github.com/yjeanrenaud/yj_qualAnonymiser) in noScribe.
 
 ## Warning
