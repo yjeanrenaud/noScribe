@@ -44,6 +44,8 @@ de:
   label_pause: 'Pausen markieren:'
   label_timestamps: 'Zeitmarken:'
   label_disfluencies: 'Füllworte:'
+  label_pii_mark: 'PII markieren (*** … [tag] ***)'
+  label_pii_redact: 'PII schwärzen ([REDACTED])'
 
   start_button: Start
   start_queue: 'Auftrag jetzt starten'
