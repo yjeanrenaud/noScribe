@@ -75,6 +75,9 @@ from typing import Optional, List
 import time
 
 import utils
+##for PII
+from pii.service import detect_pii, redact
+from pii import pii_marker as yj_pii
 
  # Pyinstaller fix, used to open multiple instances on Mac
 mp.freeze_support()
@@ -2764,6 +2767,19 @@ class App(ctk.CTk):
                             raise TypeError(f'Invalid file type "{job.file_ext}".')
                         try:
                             if txt != '':
+                                # --- PII post-processing ---
+                                # Redact takes precedence over marking if both are enabled
+                                if getattr(self, "pii_redact", False) or getattr(self, "pii_mark", False):
+                                    spans = detect_pii(txt)
+                                
+                                    if getattr(self, "pii_redact", False):
+                                        txt = redact(txt, spans, style="fixed", fixed_placeholder="[REDACTED]")
+                                    elif getattr(self, "pii_mark", False):
+                                        # reuse yj's wrap format: "*** <text> [tag] ***"
+                                        yj_spans = [yj_pii.Span(s.start, s.end, s.label, s.priority) for s in spans]
+                                        yj_spans = yj_pii.resolve(yj_spans)
+                                        txt = yj_pii.wrap(txt, yj_spans)
+                                # --- end PII post-processing ---
                                 with open(job.transcript_file, 'w', encoding="utf-8") as f:
                                     f.write(txt)
                                     f.flush()
