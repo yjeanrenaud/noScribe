@@ -45,6 +45,8 @@ en:
   label_pause: 'Mark pause:'
   label_timestamps: 'Timestamps:'
   label_disfluencies: 'Disfluencies:'
+  label_pii_mark: 'Mark PII (*** … [tag] ***)'
+  label_pii_redact: 'Redact PII ([REDACTED])'
   
   start_button: Start 
   start_queue: 'Start job now'
